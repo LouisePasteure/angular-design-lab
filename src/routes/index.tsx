@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ArrowRight, ArrowUpRight, BookOpen, CalendarDays, Clock3, FileCheck2, FileText, GraduationCap, LockKeyhole, Menu, MessageCircle, Search, ShieldCheck, Sparkles, Star, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -75,10 +75,11 @@ function Home() {
             {query && <Button type="button" size="icon" variant="ghost" aria-label="Hapus pencarian" onClick={() => setQuery("")}><X /></Button>}
             <Button type="submit" className="h-full px-4" aria-label="Cari"><ArrowRight /></Button>
           </form>
-          <div className="flex items-center gap-1 sm:gap-2">
-            <Button variant="ghost" className="hidden px-3 text-xs lg:inline-flex" onClick={() => setNotice("login")}>Masuk</Button>
-            <Button className="hidden h-10 px-4 text-xs sm:inline-flex" onClick={() => setNotice("order")}>Buat Pesanan <ArrowUpRight /></Button>
-            <Button variant="ghost" size="icon" aria-label="Akun dan pesanan" title="Akun dan pesanan" onClick={() => setNotice("login")}><GraduationCap /></Button>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <Button variant="ghost" asChild className="hidden px-3 text-xs sm:inline-flex"><Link to="/login">Masuk</Link></Button>
+            <Button asChild className="hidden h-10 px-5 text-xs sm:inline-flex"><Link to="/daftar">Daftar</Link></Button>
+            <Button variant="outline" asChild className="h-9 px-3 text-xs sm:hidden"><Link to="/login">Masuk</Link></Button>
+            <Button asChild className="h-9 px-3 text-xs sm:hidden"><Link to="/daftar">Daftar</Link></Button>
             <Button variant="ghost" size="icon" className="lg:hidden" aria-label={mobileMenu ? "Tutup menu" : "Buka menu"} onClick={() => setMobileMenu(!mobileMenu)}>{mobileMenu ? <X /> : <Menu />}</Button>
           </div>
         </div>
