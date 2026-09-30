@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ArrowRight, ArrowUpRight, BookOpen, CalendarDays, Clock3, FileCheck2, FileText, GraduationCap, LockKeyhole, Menu, MessageCircle, Search, ShieldCheck, Sparkles, Star, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -75,10 +75,11 @@ function Home() {
             {query && <Button type="button" size="icon" variant="ghost" aria-label="Hapus pencarian" onClick={() => setQuery("")}><X /></Button>}
             <Button type="submit" className="h-full px-4" aria-label="Cari"><ArrowRight /></Button>
           </form>
-          <div className="flex items-center gap-1 sm:gap-2">
-            <Button variant="ghost" className="hidden px-3 text-xs lg:inline-flex" onClick={() => setNotice("login")}>Masuk</Button>
-            <Button className="hidden h-10 px-4 text-xs sm:inline-flex" onClick={() => setNotice("order")}>Buat Pesanan <ArrowUpRight /></Button>
-            <Button variant="ghost" size="icon" aria-label="Akun dan pesanan" title="Akun dan pesanan" onClick={() => setNotice("login")}><GraduationCap /></Button>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <Button variant="ghost" asChild className="hidden px-3 text-xs sm:inline-flex"><Link to="/login">Masuk</Link></Button>
+            <Button asChild className="hidden h-10 px-5 text-xs sm:inline-flex"><Link to="/daftar">Daftar</Link></Button>
+            <Button variant="outline" asChild className="h-9 px-3 text-xs sm:hidden"><Link to="/login">Masuk</Link></Button>
+            <Button asChild className="h-9 px-3 text-xs sm:hidden"><Link to="/daftar">Daftar</Link></Button>
             <Button variant="ghost" size="icon" className="lg:hidden" aria-label={mobileMenu ? "Tutup menu" : "Buka menu"} onClick={() => setMobileMenu(!mobileMenu)}>{mobileMenu ? <X /> : <Menu />}</Button>
           </div>
         </div>
@@ -88,7 +89,7 @@ function Home() {
             <span className="flex items-center gap-2 text-muted-foreground"><ShieldCheck className="size-4 text-primary" /> Belajar lebih percaya diri, dengan caramu sendiri.</span>
           </div>
         </nav>
-        {mobileMenu && <nav className="border-t border-border px-5 py-3 lg:hidden" aria-label="Navigasi seluler"><div className="mx-auto flex max-w-[1200px] flex-col text-sm font-semibold">{[["Beranda", "#beranda"], ["Layanan", "#layanan"], ["Cara Kerja", "#cara-kerja"], ["FAQ", "#faq"]].map(([label, href]) => <a onClick={() => setMobileMenu(false)} className="border-b border-border py-3" href={href} key={label}>{label}</a>)}<Button className="mt-4" onClick={() => { setMobileMenu(false); setNotice("order"); }}>Buat Pesanan</Button></div></nav>}
+        {mobileMenu && <nav className="border-t border-border px-5 py-3 lg:hidden" aria-label="Navigasi seluler"><div className="mx-auto flex max-w-[1200px] flex-col text-sm font-semibold">{[["Beranda", "#beranda"], ["Layanan", "#layanan"], ["Cara Kerja", "#cara-kerja"], ["FAQ", "#faq"]].map(([label, href]) => <a onClick={() => setMobileMenu(false)} className="border-b border-border py-3" href={href} key={label}>{label}</a>)}<div className="mt-4 flex gap-2"><Button variant="outline" className="flex-1" asChild><Link to="/login" onClick={() => setMobileMenu(false)}>Masuk</Link></Button><Button className="flex-1" asChild><Link to="/daftar" onClick={() => setMobileMenu(false)}>Daftar</Link></Button></div></div></nav>}
       </header>
 
       <nav className="border-b border-border" aria-label="Kategori layanan"><div className="mx-auto flex max-w-[1200px] items-center gap-6 overflow-x-auto px-5 py-3 whitespace-nowrap text-[11px] font-semibold text-muted-foreground [scrollbar-width:none] sm:gap-8 sm:text-xs"><span className="hidden shrink-0 items-center gap-2 text-foreground sm:flex"><Menu className="size-3.5" /> KATEGORI</span><span className="hidden h-4 w-px bg-border sm:block" />{categories.slice(1).map((item) => <Button key={item} variant="ghost" className="h-auto shrink-0 p-0 text-[11px] font-semibold text-muted-foreground hover:bg-transparent hover:text-primary sm:text-xs" onClick={() => chooseCategory(item)}>{item}</Button>)}</div></nav>
