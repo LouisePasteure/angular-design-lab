@@ -75,3 +75,15 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+:root {
+  --status-review: oklch(0.52 0.2 300);
+  --status-warning: oklch(0.62 0.17 55);
+  --status-locked: oklch(0.45 0.03 258);
+  --status-neutral: oklch(0.55 0.01 258);
+}
+@theme inline {
+  --color-status-review: var(--status-review);
+  --color-status-warning: var(--status-warning);
+  --color-status-locked: var(--status-locked);
+  --color-status-neutral: var(--status-neutral);
+}
