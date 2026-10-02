@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DaftarRouteImport } from './routes/daftar'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as PenugasanRouteImport } from './routes/penugasan'
+import { Route as PenugasanIndexRouteImport } from './routes/penugasan.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +36,31 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PenugasanRoute = PenugasanRouteImport.update({
+  id: '/penugasan',
+  path: '/penugasan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PenugasanIndexRoute = PenugasanIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PenugasanRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/daftar': typeof DaftarRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/penugasan': typeof PenugasanRouteWithChildren
+  '/penugasan/': typeof PenugasanIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/daftar': typeof DaftarRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/penugasan': typeof PenugasanIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +68,23 @@ export interface FileRoutesById {
   '/daftar': typeof DaftarRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/penugasan': typeof PenugasanRouteWithChildren
+  '/penugasan/': typeof PenugasanIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/daftar' | '/dashboard' | '/login'
+  fullPaths:
+    '/' | '/daftar' | '/dashboard' | '/login' | '/penugasan' | '/penugasan/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/daftar' | '/dashboard' | '/login'
-  id: '__root__' | '/' | '/daftar' | '/dashboard' | '/login'
+  to: '/' | '/daftar' | '/dashboard' | '/login' | '/penugasan'
+  id:
+    | '__root__'
+    | '/'
+    | '/daftar'
+    | '/dashboard'
+    | '/login'
+    | '/penugasan'
+    | '/penugasan/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +92,7 @@ export interface RootRouteChildren {
   DaftarRoute: typeof DaftarRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
+  PenugasanRoute: typeof PenugasanRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -99,14 +125,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/penugasan': {
+      id: '/penugasan'
+      path: '/penugasan'
+      fullPath: '/penugasan'
+      preLoaderRoute: typeof PenugasanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/penugasan/': {
+      id: '/penugasan/'
+      path: '/'
+      fullPath: '/penugasan/'
+      preLoaderRoute: typeof PenugasanIndexRouteImport
+      parentRoute: typeof PenugasanRoute
+    }
   }
 }
+
+interface PenugasanRouteChildren {
+  PenugasanIndexRoute: typeof PenugasanIndexRoute
+}
+
+const PenugasanRouteChildren: PenugasanRouteChildren = {
+  PenugasanIndexRoute: PenugasanIndexRoute,
+}
+
+const PenugasanRouteWithChildren = PenugasanRoute._addFileChildren(
+  PenugasanRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DaftarRoute: DaftarRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
+  PenugasanRoute: PenugasanRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
