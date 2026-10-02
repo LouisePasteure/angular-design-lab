@@ -1,14 +1,18 @@
-# Welcome to your Lovable project
+# Sharp UI Design
+
+jangan menggunakan rounded untuk sudut boxnya, gaya yang ingin saya gunakan adalah seperti yang ada pada gambar yang saya gunakan. saya untuk sekarang ingin membuat UI nya terlebih dahulu sebelum masuk ke backend. buatkan UI untuk homepagenya terlebih dahulu dengan gaya seperti yang saya instruksikan
 
 This project was built with [Lovable](https://lovable.dev).
 
+**Live app**: https://angular-design-lab.lovable.app
+
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/277e5620-8876-4ef7-a267-8e165472b631).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +24,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
