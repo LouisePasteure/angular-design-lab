@@ -21,7 +21,12 @@ export type AuthSession =
   | { role: "admin"; workerId: string; workerRole: WorkerRole; permissions: Permission[] }
   | null;
 export type LoginResult =
-  "success" | "activation_required" | "password_change_required" | "invalid" | "blocked";
+  | "success"
+  | "activation_required"
+  | "password_change_required"
+  | "invalid"
+  | "blocked"
+  | "unavailable";
 export type ActivationResult =
   "success" | "invalid" | "expired" | "revoked" | "used" | "password_mismatch";
 export type GuestAssignmentSession = {

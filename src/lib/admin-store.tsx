@@ -30,11 +30,9 @@ import {
   normalizeUsername,
   RESERVED_USERNAMES,
   validateUsername,
-  normalizeLoginIdentifier,
   normalizeWhatsapp,
   generateAssignmentAccessToken,
 } from "@/lib/secure-generators";
-import { permissionsForRole } from "@/lib/permissions";
 import { isAssignmentActive } from "@/lib/admin-selectors";
 
 // Keep these storage namespaces stable so the rebrand does not discard saved browser state.
@@ -62,13 +60,29 @@ type Snapshot = {
 const now = () => new Date().toISOString();
 
 function migrateCustomer(item: Partial<Customer>, fallback: Customer): Customer {
+  const {
+    passwordDigest: _savedPasswordDigest,
+    activationTokenDigest: _savedActivationTokenDigest,
+    ...safeItem
+  } = item;
+  const {
+    passwordDigest: _fallbackPasswordDigest,
+    activationTokenDigest: _fallbackActivationTokenDigest,
+    ...safeFallback
+  } = fallback;
+  void [
+    _savedPasswordDigest,
+    _savedActivationTokenDigest,
+    _fallbackPasswordDigest,
+    _fallbackActivationTokenDigest,
+  ];
   return {
-    ...fallback,
-    ...item,
+    ...safeFallback,
+    ...safeItem,
     activationStatus:
       item.activationStatus ??
       (item.accountStatus === "Aktif" ? "Sudah digunakan" : "Belum digunakan"),
-    passwordDigest: item.passwordDigest ?? fallback.passwordDigest,
+    passwordDigest: "",
     forcePasswordChange: item.forcePasswordChange ?? false,
     loginCount: item.loginCount ?? 0,
   };
@@ -89,7 +103,11 @@ function migrateAssignment(
     ...safe
   } = item;
   void [_a, _b, _c, _d, _e, _f];
-  const legacyMap: Record<string, string> = { Raka: "WK-001", Dinda: "WK-002", Alya: "WK-003" };
+  const legacyMap: Record<string, string> = {
+    Administrator: "WK-001",
+    Dinda: "WK-002",
+    Alya: "WK-003",
+  };
   const primaryWorkerId =
     safe.primaryWorkerId ??
     (typeof legacyAssignee === "string" ? legacyMap[legacyAssignee] : undefined);
@@ -112,25 +130,6 @@ function migrateAssignment(
       : {}),
     ...(safe.workStatus === "Selesai" && !safe.completedAt ? { completedAt: safe.deadline } : {}),
   } as AdminAssignment;
-}
-
-function parseSession(value: string | null): AuthSession {
-  if (!value) return null;
-  try {
-    const parsed = JSON.parse(value) as AuthSession & { adminId?: string };
-    if (parsed?.role === "admin" && parsed.workerId) return parsed;
-    if (parsed?.role === "admin" && parsed.adminId)
-      return {
-        role: "admin",
-        workerId: "WK-001",
-        workerRole: "Super Admin",
-        permissions: permissionsForRole("Super Admin"),
-      };
-    if (parsed?.role === "customer" && parsed.customerId) return parsed;
-  } catch {
-    /* stale session */
-  }
-  return null;
 }
 
 export function AdminStoreProvider({ children }: { children: ReactNode }) {
@@ -189,9 +188,12 @@ export function AdminStoreProvider({ children }: { children: ReactNode }) {
               const legacy = item as RevisionRequest & { assignee?: string };
               const workerId =
                 item.workerId ??
-                ({ Raka: "WK-001", Dinda: "WK-002", Alya: "WK-003" } as Record<string, string>)[
-                  legacy.assignee ?? ""
-                ];
+                (
+                  { Administrator: "WK-001", Dinda: "WK-002", Alya: "WK-003" } as Record<
+                    string,
+                    string
+                  >
+                )[legacy.assignee ?? ""];
               const { assignee: _assignee, ...safe } = legacy;
               void _assignee;
               return { ...safe, ...(workerId ? { workerId } : {}) };
@@ -200,9 +202,11 @@ export function AdminStoreProvider({ children }: { children: ReactNode }) {
         if (parsed.audits)
           setAudits(parsed.audits.filter((entry) => entry.entityType !== ("Token" as never)));
         if (parsed.socialLinks) setSocialLinks(parsed.socialLinks);
-        if (parsed.workers) setWorkers(parsed.workers);
+        if (parsed.workers)
+          setWorkers(parsed.workers.map((worker) => ({ ...worker, passwordDigest: "" })));
       }
-      setSession(parseSession(window.sessionStorage.getItem(SESSION_KEY)));
+      window.sessionStorage.removeItem(SESSION_KEY);
+      setSession(null);
       const guestRaw = window.sessionStorage.getItem(GUEST_SESSION_KEY);
       if (guestRaw) {
         const guest = JSON.parse(guestRaw) as GuestAssignmentSession;
@@ -310,91 +314,8 @@ export function AdminStoreProvider({ children }: { children: ReactNode }) {
           : undefined,
       getInvoiceForAssignment: (assignmentId) =>
         invoices.find((item) => item.assignmentId === assignmentId),
-      loginCustomer: async (identifier, password) => {
-        const normalized = normalizeLoginIdentifier(identifier);
-        const customer = customers.find(
-          (item) =>
-            !item.deletedAt &&
-            (normalized.kind === "username"
-              ? normalizeUsername(item.username) === normalized.value
-              : item.whatsapp.replace(/\D/g, "") === normalized.value),
-        );
-        if (!customer || (await hashSecret(password)) !== customer.passwordDigest) return "invalid";
-        if (["Ditangguhkan", "Terkunci"].includes(customer.accountStatus) || customer.archivedAt)
-          return "blocked";
-        if (
-          customer.activationStatus !== "Sudah digunakan" ||
-          customer.accountStatus === "Nonaktif"
-        ) {
-          setSession({ role: "customer", customerId: customer.id, pendingActivation: true });
-          return "activation_required";
-        }
-        const timestamp = now();
-        setCustomers((items) =>
-          items.map((item) =>
-            item.id === customer.id
-              ? {
-                  ...item,
-                  lastLoginAt: timestamp,
-                  lastActiveAt: timestamp,
-                  loginCount: item.loginCount + 1,
-                }
-              : item,
-          ),
-        );
-        setSession({ role: "customer", customerId: customer.id, pendingActivation: false });
-        recordAudit({
-          actor: customer.username,
-          action: "Login customer berhasil",
-          entityType: "Login",
-          entityId: customer.id,
-          note: "Identifier dan kredensial tidak dicatat.",
-        });
-        return "success";
-      },
-      loginAdmin: async (username, password) => {
-        const worker = workers.find(
-          (item) =>
-            normalizeUsername(item.username) === normalizeUsername(username) && !item.deletedAt,
-        );
-        if (
-          !worker ||
-          worker.status !== "Aktif" ||
-          (await hashSecret(password)) !== worker.passwordDigest
-        )
-          return "invalid";
-        const timestamp = now();
-        setWorkers((items) =>
-          items.map((item) =>
-            item.id === worker.id
-              ? { ...item, lastLoginAt: timestamp, lastActiveAt: timestamp, updatedAt: timestamp }
-              : item,
-          ),
-        );
-        setSession({
-          role: "admin",
-          workerId: worker.id,
-          workerRole: worker.role,
-          permissions: permissionsForRole(worker.role),
-        });
-        setAudits((items) => [
-          {
-            id: `AUD-${crypto.randomUUID()}`,
-            timestamp,
-            actor: worker.fullName,
-            actorId: worker.id,
-            actorRole: worker.role,
-            action: "Login internal berhasil",
-            entityType: "Login",
-            entityId: worker.id,
-            note: "Kredensial tidak dicatat.",
-          },
-          ...items,
-        ]);
-        return worker.credentialStatus === "Password Sementara"
-          ? "password_change_required"
-          : "success";
-      },
+      loginCustomer: async () => "unavailable",
+      loginAdmin: async () => "unavailable",
       verifyAssignmentAccess: async (whatsapp, token) => {
         const normalizedWhatsapp = normalizeWhatsapp(whatsapp).replace(/\D/g, "");
         const digest = await hashSecret(token);

@@ -4,7 +4,6 @@ import { ArrowRight, Eye, EyeOff, MessageCircle } from "lucide-react";
 import { AuthShell } from "@/components/auth-shell";
 import { Button } from "@/components/ui/button";
 import { BRAND } from "@/config/brand";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { useAdminStore } from "@/lib/use-admin-store";
 
@@ -25,28 +24,21 @@ function LoginPage() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
-  const [remember, setRemember] = useState(false);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const { loginCustomer } = useAdminStore();
   useEffect(() => {
-    // Preserve the existing key so remembered accounts survive the brand change.
-    const saved = window.localStorage.getItem("temantugas-remembered-account");
-    if (saved) {
-      setIdentifier(saved);
-      setRemember(true);
-    }
+    window.localStorage.removeItem("temantugas-remembered-account");
   }, []);
   const submit = async (event: FormEvent) => {
     event.preventDefault();
     setBusy(true);
     setError("");
     const result = await loginCustomer(identifier, password);
-    if (remember) window.localStorage.setItem("temantugas-remembered-account", identifier.trim());
-    else window.localStorage.removeItem("temantugas-remembered-account");
     setBusy(false);
     if (result === "success") void navigate({ to: "/dashboard" });
     else if (result === "activation_required") void navigate({ to: "/aktivasi" });
+    else if (result === "unavailable") setError("Autentikasi customer belum tersedia.");
     else
       setError(
         result === "blocked"
@@ -101,10 +93,6 @@ function LoginPage() {
             </button>
           </div>
         </label>
-        <label className="flex items-center gap-2 text-sm">
-          <Checkbox checked={remember} onCheckedChange={(value) => setRemember(value === true)} />{" "}
-          Ingat akun di perangkat ini
-        </label>
         <Button className="h-11 w-full">
           {busy ? "Memeriksa…" : "Masuk"} {!busy && <ArrowRight />}
         </Button>
@@ -133,7 +121,7 @@ function LoginPage() {
           Cek satu penugasan
         </p>
         <p className="mt-2 text-sm font-semibold">
-          Tidak perlu login. Gunakan nomor WhatsApp dan token yang diberikan Admin.
+          Gunakan token akses penugasan yang diberikan admin untuk melihat status pekerjaan.
         </p>
         <Button className="mt-3 w-full" variant="outline" asChild>
           <Link to="/cek-penugasan">
@@ -141,10 +129,6 @@ function LoginPage() {
           </Link>
         </Button>
       </div>
-      <p className="mt-6 text-[11px] leading-5 text-muted-foreground">
-        Demo customer aktif: <strong>aditya.p</strong> / <strong>DemoCustomer1!</strong>. Akun baru
-        akan diarahkan ke aktivasi satu kali.
-      </p>
     </AuthShell>
   );
 }

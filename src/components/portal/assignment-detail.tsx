@@ -202,7 +202,7 @@ export function ResultAccessPanel({
           </div>
           <div>
             <dt className="text-xs text-muted-foreground">Estimasi akses</dt>
-            <dd className="font-semibold">Diperkirakan tersedia pada 4 Oktober 2026</dd>
+            <dd className="font-semibold">Estimasi tersedia pada 4 Oktober 2026</dd>
           </div>
         </dl>
         <div className="mt-5 flex flex-wrap gap-2">

@@ -24,6 +24,7 @@ function AdminLogin() {
     const result = await loginAdmin(username, password);
     if (result === "success") void navigate({ to: "/admin" });
     else if (result === "password_change_required") void navigate({ to: "/admin/profil" });
+    else if (result === "unavailable") setError("Autentikasi admin belum tersedia.");
     else setError("Kredensial administrator tidak sesuai.");
   };
   return (
@@ -57,6 +58,7 @@ function AdminLogin() {
               <Input
                 required
                 autoComplete="username"
+                placeholder="Masukkan username admin"
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}
               />
@@ -67,6 +69,7 @@ function AdminLogin() {
                 required
                 type="password"
                 autoComplete="current-password"
+                placeholder="Masukkan password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
@@ -80,9 +83,6 @@ function AdminLogin() {
               Masuk ke Admin <ArrowRight />
             </Button>
           </form>
-          <p className="mt-5 text-[11px] text-muted-foreground">
-            Demo: <strong>raka</strong> / <strong>AdminDemo1!</strong>
-          </p>
         </div>
       </section>
     </main>
