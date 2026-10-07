@@ -5,14 +5,14 @@ import { getCookies, setCookie, setResponseHeader } from "@tanstack/react-start/
 
 export function createSupabaseServerClient() {
   const url = process.env["SUPABASE_URL"];
-  const publishableKey = process.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
+  const publishableKey = process.env["SUPABASE_PUBLISHABLE_KEY"];
 
   if (!url) {
     throw new Error("Supabase server client requires SUPABASE_URL.");
   }
 
   if (!publishableKey) {
-    throw new Error("Supabase server client requires VITE_SUPABASE_PUBLISHABLE_KEY.");
+    throw new Error("Supabase server client requires SUPABASE_PUBLISHABLE_KEY.");
   }
 
   const requestCookies = getCookies();

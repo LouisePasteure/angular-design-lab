@@ -29,6 +29,7 @@ import { Route as AdminProfilRouteImport } from './routes/admin_.profil'
 import { Route as AdminRevisiRouteImport } from './routes/admin_.revisi'
 import { Route as AdminVoucherRouteImport } from './routes/admin_.voucher'
 import { Route as AdminWorkerRouteImport } from './routes/admin_.worker'
+import { Route as ApiHealthRouteImport } from './routes/api.health'
 import { Route as CekPenugasanIdRouteImport } from './routes/cek-penugasan.$id'
 import { Route as DashboardNotifikasiRouteImport } from './routes/dashboard_.notifikasi'
 import { Route as DashboardPenugasanRouteImport } from './routes/dashboard_.penugasan'
@@ -147,6 +148,11 @@ const AdminWorkerRoute = AdminWorkerRouteImport.update({
   path: '/admin/worker',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CekPenugasanIdRoute = CekPenugasanIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -254,6 +260,7 @@ export interface FileRoutesByFullPath {
   '/admin/revisi': typeof AdminRevisiRoute
   '/admin/voucher': typeof AdminVoucherRoute
   '/admin/worker': typeof AdminWorkerRouteWithChildren
+  '/api/health': typeof ApiHealthRoute
   '/cek-penugasan/$id': typeof CekPenugasanIdRoute
   '/dashboard/notifikasi': typeof DashboardNotifikasiRoute
   '/dashboard/penugasan': typeof DashboardPenugasanRouteWithChildren
@@ -290,6 +297,7 @@ export interface FileRoutesByTo {
   '/admin/profil': typeof AdminProfilRoute
   '/admin/revisi': typeof AdminRevisiRoute
   '/admin/voucher': typeof AdminVoucherRoute
+  '/api/health': typeof ApiHealthRoute
   '/cek-penugasan/$id': typeof CekPenugasanIdRoute
   '/dashboard/notifikasi': typeof DashboardNotifikasiRoute
   '/dashboard/profil': typeof DashboardProfilRoute
@@ -329,6 +337,7 @@ export interface FileRoutesById {
   '/admin_/revisi': typeof AdminRevisiRoute
   '/admin_/voucher': typeof AdminVoucherRoute
   '/admin_/worker': typeof AdminWorkerRouteWithChildren
+  '/api/health': typeof ApiHealthRoute
   '/cek-penugasan/$id': typeof CekPenugasanIdRoute
   '/dashboard_/notifikasi': typeof DashboardNotifikasiRoute
   '/dashboard_/penugasan': typeof DashboardPenugasanRouteWithChildren
@@ -370,6 +379,7 @@ export interface FileRouteTypes {
     | '/admin/revisi'
     | '/admin/voucher'
     | '/admin/worker'
+    | '/api/health'
     | '/cek-penugasan/$id'
     | '/dashboard/notifikasi'
     | '/dashboard/penugasan'
@@ -406,6 +416,7 @@ export interface FileRouteTypes {
     | '/admin/profil'
     | '/admin/revisi'
     | '/admin/voucher'
+    | '/api/health'
     | '/cek-penugasan/$id'
     | '/dashboard/notifikasi'
     | '/dashboard/profil'
@@ -444,6 +455,7 @@ export interface FileRouteTypes {
     | '/admin_/revisi'
     | '/admin_/voucher'
     | '/admin_/worker'
+    | '/api/health'
     | '/cek-penugasan/$id'
     | '/dashboard_/notifikasi'
     | '/dashboard_/penugasan'
@@ -484,6 +496,7 @@ export interface RootRouteChildren {
   AdminRevisiRoute: typeof AdminRevisiRoute
   AdminVoucherRoute: typeof AdminVoucherRoute
   AdminWorkerRoute: typeof AdminWorkerRouteWithChildren
+  ApiHealthRoute: typeof ApiHealthRoute
   DashboardNotifikasiRoute: typeof DashboardNotifikasiRoute
   DashboardPenugasanRoute: typeof DashboardPenugasanRouteWithChildren
   DashboardProfilRoute: typeof DashboardProfilRoute
@@ -632,6 +645,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/worker'
       fullPath: '/admin/worker'
       preLoaderRoute: typeof AdminWorkerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cek-penugasan/$id': {
@@ -848,6 +868,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRevisiRoute: AdminRevisiRoute,
   AdminVoucherRoute: AdminVoucherRoute,
   AdminWorkerRoute: AdminWorkerRouteWithChildren,
+  ApiHealthRoute: ApiHealthRoute,
   DashboardNotifikasiRoute: DashboardNotifikasiRoute,
   DashboardPenugasanRoute: DashboardPenugasanRouteWithChildren,
   DashboardProfilRoute: DashboardProfilRoute,
