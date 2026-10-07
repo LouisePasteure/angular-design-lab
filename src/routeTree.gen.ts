@@ -10,15 +10,61 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AktivasiRouteImport } from './routes/aktivasi'
+import { Route as CekPenugasanRouteImport } from './routes/cek-penugasan'
 import { Route as DaftarRouteImport } from './routes/daftar'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as PenugasanRouteImport } from './routes/penugasan'
-import { Route as PenugasanIndexRouteImport } from './routes/penugasan.index'
+import { Route as AdminAktivitasRouteImport } from './routes/admin_.aktivitas'
+import { Route as AdminCustomerRouteImport } from './routes/admin_.customer'
+import { Route as AdminFeedbackRouteImport } from './routes/admin_.feedback'
+import { Route as AdminLaporanRouteImport } from './routes/admin_.laporan'
+import { Route as AdminLoginRouteImport } from './routes/admin_.login'
+import { Route as AdminPembayaranRouteImport } from './routes/admin_.pembayaran'
+import { Route as AdminPengaturanRouteImport } from './routes/admin_.pengaturan'
+import { Route as AdminPenugasanRouteImport } from './routes/admin_.penugasan'
+import { Route as AdminProfilRouteImport } from './routes/admin_.profil'
+import { Route as AdminRevisiRouteImport } from './routes/admin_.revisi'
+import { Route as AdminVoucherRouteImport } from './routes/admin_.voucher'
+import { Route as AdminWorkerRouteImport } from './routes/admin_.worker'
+import { Route as CekPenugasanIdRouteImport } from './routes/cek-penugasan.$id'
+import { Route as DashboardNotifikasiRouteImport } from './routes/dashboard_.notifikasi'
+import { Route as DashboardPenugasanRouteImport } from './routes/dashboard_.penugasan'
+import { Route as DashboardProfilRouteImport } from './routes/dashboard_.profil'
+import { Route as DashboardTagihanRouteImport } from './routes/dashboard_.tagihan'
+import { Route as DashboardVoucherRouteImport } from './routes/dashboard_.voucher'
+import { Route as DevSupabaseCheckRouteImport } from './routes/dev.supabase-check'
+import { Route as AdminCustomerIndexRouteImport } from './routes/admin_.customer.index'
+import { Route as AdminCustomerIdRouteImport } from './routes/admin_.customer.$id'
+import { Route as AdminPenugasanIndexRouteImport } from './routes/admin_.penugasan.index'
+import { Route as AdminPenugasanIdRouteImport } from './routes/admin_.penugasan.$id'
+import { Route as AdminPenugasanBaruRouteImport } from './routes/admin_.penugasan.baru'
+import { Route as AdminWorkerIndexRouteImport } from './routes/admin_.worker.index'
+import { Route as AdminWorkerIdRouteImport } from './routes/admin_.worker.$id'
+import { Route as AdminWorkerBaruRouteImport } from './routes/admin_.worker.baru'
+import { Route as DashboardPenugasanIndexRouteImport } from './routes/dashboard_.penugasan.index'
+import { Route as DashboardPenugasanIdRouteImport } from './routes/dashboard_.penugasan.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AktivasiRoute = AktivasiRouteImport.update({
+  id: '/aktivasi',
+  path: '/aktivasi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CekPenugasanRoute = CekPenugasanRouteImport.update({
+  id: '/cek-penugasan',
+  path: '/cek-penugasan',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DaftarRoute = DaftarRouteImport.update({
@@ -41,58 +87,409 @@ const PenugasanRoute = PenugasanRouteImport.update({
   path: '/penugasan',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PenugasanIndexRoute = PenugasanIndexRouteImport.update({
+const AdminAktivitasRoute = AdminAktivitasRouteImport.update({
+  id: '/admin_/aktivitas',
+  path: '/admin/aktivitas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCustomerRoute = AdminCustomerRouteImport.update({
+  id: '/admin_/customer',
+  path: '/admin/customer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminFeedbackRoute = AdminFeedbackRouteImport.update({
+  id: '/admin_/feedback',
+  path: '/admin/feedback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLaporanRoute = AdminLaporanRouteImport.update({
+  id: '/admin_/laporan',
+  path: '/admin/laporan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin_/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPembayaranRoute = AdminPembayaranRouteImport.update({
+  id: '/admin_/pembayaran',
+  path: '/admin/pembayaran',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPengaturanRoute = AdminPengaturanRouteImport.update({
+  id: '/admin_/pengaturan',
+  path: '/admin/pengaturan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPenugasanRoute = AdminPenugasanRouteImport.update({
+  id: '/admin_/penugasan',
+  path: '/admin/penugasan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminProfilRoute = AdminProfilRouteImport.update({
+  id: '/admin_/profil',
+  path: '/admin/profil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRevisiRoute = AdminRevisiRouteImport.update({
+  id: '/admin_/revisi',
+  path: '/admin/revisi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminVoucherRoute = AdminVoucherRouteImport.update({
+  id: '/admin_/voucher',
+  path: '/admin/voucher',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminWorkerRoute = AdminWorkerRouteImport.update({
+  id: '/admin_/worker',
+  path: '/admin/worker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CekPenugasanIdRoute = CekPenugasanIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => CekPenugasanRoute,
+} as any)
+const DashboardNotifikasiRoute = DashboardNotifikasiRouteImport.update({
+  id: '/dashboard_/notifikasi',
+  path: '/dashboard/notifikasi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardPenugasanRoute = DashboardPenugasanRouteImport.update({
+  id: '/dashboard_/penugasan',
+  path: '/dashboard/penugasan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardProfilRoute = DashboardProfilRouteImport.update({
+  id: '/dashboard_/profil',
+  path: '/dashboard/profil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardTagihanRoute = DashboardTagihanRouteImport.update({
+  id: '/dashboard_/tagihan',
+  path: '/dashboard/tagihan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardVoucherRoute = DashboardVoucherRouteImport.update({
+  id: '/dashboard_/voucher',
+  path: '/dashboard/voucher',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DevSupabaseCheckRoute = DevSupabaseCheckRouteImport.update({
+  id: '/dev/supabase-check',
+  path: '/dev/supabase-check',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCustomerIndexRoute = AdminCustomerIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => PenugasanRoute,
+  getParentRoute: () => AdminCustomerRoute,
+} as any)
+const AdminCustomerIdRoute = AdminCustomerIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminCustomerRoute,
+} as any)
+const AdminPenugasanIndexRoute = AdminPenugasanIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminPenugasanRoute,
+} as any)
+const AdminPenugasanIdRoute = AdminPenugasanIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminPenugasanRoute,
+} as any)
+const AdminPenugasanBaruRoute = AdminPenugasanBaruRouteImport.update({
+  id: '/baru',
+  path: '/baru',
+  getParentRoute: () => AdminPenugasanRoute,
+} as any)
+const AdminWorkerIndexRoute = AdminWorkerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminWorkerRoute,
+} as any)
+const AdminWorkerIdRoute = AdminWorkerIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminWorkerRoute,
+} as any)
+const AdminWorkerBaruRoute = AdminWorkerBaruRouteImport.update({
+  id: '/baru',
+  path: '/baru',
+  getParentRoute: () => AdminWorkerRoute,
+} as any)
+const DashboardPenugasanIndexRoute = DashboardPenugasanIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardPenugasanRoute,
+} as any)
+const DashboardPenugasanIdRoute = DashboardPenugasanIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => DashboardPenugasanRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/aktivasi': typeof AktivasiRoute
+  '/cek-penugasan': typeof CekPenugasanRouteWithChildren
   '/daftar': typeof DaftarRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/penugasan': typeof PenugasanRouteWithChildren
-  '/penugasan/': typeof PenugasanIndexRoute
+  '/penugasan': typeof PenugasanRoute
+  '/admin/aktivitas': typeof AdminAktivitasRoute
+  '/admin/customer': typeof AdminCustomerRouteWithChildren
+  '/admin/feedback': typeof AdminFeedbackRoute
+  '/admin/laporan': typeof AdminLaporanRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/pembayaran': typeof AdminPembayaranRoute
+  '/admin/pengaturan': typeof AdminPengaturanRoute
+  '/admin/penugasan': typeof AdminPenugasanRouteWithChildren
+  '/admin/profil': typeof AdminProfilRoute
+  '/admin/revisi': typeof AdminRevisiRoute
+  '/admin/voucher': typeof AdminVoucherRoute
+  '/admin/worker': typeof AdminWorkerRouteWithChildren
+  '/cek-penugasan/$id': typeof CekPenugasanIdRoute
+  '/dashboard/notifikasi': typeof DashboardNotifikasiRoute
+  '/dashboard/penugasan': typeof DashboardPenugasanRouteWithChildren
+  '/dashboard/profil': typeof DashboardProfilRoute
+  '/dashboard/tagihan': typeof DashboardTagihanRoute
+  '/dashboard/voucher': typeof DashboardVoucherRoute
+  '/dev/supabase-check': typeof DevSupabaseCheckRoute
+  '/admin/customer/$id': typeof AdminCustomerIdRoute
+  '/admin/penugasan/$id': typeof AdminPenugasanIdRoute
+  '/admin/penugasan/baru': typeof AdminPenugasanBaruRoute
+  '/admin/worker/$id': typeof AdminWorkerIdRoute
+  '/admin/worker/baru': typeof AdminWorkerBaruRoute
+  '/dashboard/penugasan/$id': typeof DashboardPenugasanIdRoute
+  '/admin/customer/': typeof AdminCustomerIndexRoute
+  '/admin/penugasan/': typeof AdminPenugasanIndexRoute
+  '/admin/worker/': typeof AdminWorkerIndexRoute
+  '/dashboard/penugasan/': typeof DashboardPenugasanIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/aktivasi': typeof AktivasiRoute
+  '/cek-penugasan': typeof CekPenugasanRouteWithChildren
   '/daftar': typeof DaftarRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/penugasan': typeof PenugasanIndexRoute
+  '/penugasan': typeof PenugasanRoute
+  '/admin/aktivitas': typeof AdminAktivitasRoute
+  '/admin/feedback': typeof AdminFeedbackRoute
+  '/admin/laporan': typeof AdminLaporanRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/pembayaran': typeof AdminPembayaranRoute
+  '/admin/pengaturan': typeof AdminPengaturanRoute
+  '/admin/profil': typeof AdminProfilRoute
+  '/admin/revisi': typeof AdminRevisiRoute
+  '/admin/voucher': typeof AdminVoucherRoute
+  '/cek-penugasan/$id': typeof CekPenugasanIdRoute
+  '/dashboard/notifikasi': typeof DashboardNotifikasiRoute
+  '/dashboard/profil': typeof DashboardProfilRoute
+  '/dashboard/tagihan': typeof DashboardTagihanRoute
+  '/dashboard/voucher': typeof DashboardVoucherRoute
+  '/dev/supabase-check': typeof DevSupabaseCheckRoute
+  '/admin/customer/$id': typeof AdminCustomerIdRoute
+  '/admin/penugasan/$id': typeof AdminPenugasanIdRoute
+  '/admin/penugasan/baru': typeof AdminPenugasanBaruRoute
+  '/admin/worker/$id': typeof AdminWorkerIdRoute
+  '/admin/worker/baru': typeof AdminWorkerBaruRoute
+  '/dashboard/penugasan/$id': typeof DashboardPenugasanIdRoute
+  '/admin/customer': typeof AdminCustomerIndexRoute
+  '/admin/penugasan': typeof AdminPenugasanIndexRoute
+  '/admin/worker': typeof AdminWorkerIndexRoute
+  '/dashboard/penugasan': typeof DashboardPenugasanIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/aktivasi': typeof AktivasiRoute
+  '/cek-penugasan': typeof CekPenugasanRouteWithChildren
   '/daftar': typeof DaftarRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/penugasan': typeof PenugasanRouteWithChildren
-  '/penugasan/': typeof PenugasanIndexRoute
+  '/penugasan': typeof PenugasanRoute
+  '/admin_/aktivitas': typeof AdminAktivitasRoute
+  '/admin_/customer': typeof AdminCustomerRouteWithChildren
+  '/admin_/feedback': typeof AdminFeedbackRoute
+  '/admin_/laporan': typeof AdminLaporanRoute
+  '/admin_/login': typeof AdminLoginRoute
+  '/admin_/pembayaran': typeof AdminPembayaranRoute
+  '/admin_/pengaturan': typeof AdminPengaturanRoute
+  '/admin_/penugasan': typeof AdminPenugasanRouteWithChildren
+  '/admin_/profil': typeof AdminProfilRoute
+  '/admin_/revisi': typeof AdminRevisiRoute
+  '/admin_/voucher': typeof AdminVoucherRoute
+  '/admin_/worker': typeof AdminWorkerRouteWithChildren
+  '/cek-penugasan/$id': typeof CekPenugasanIdRoute
+  '/dashboard_/notifikasi': typeof DashboardNotifikasiRoute
+  '/dashboard_/penugasan': typeof DashboardPenugasanRouteWithChildren
+  '/dashboard_/profil': typeof DashboardProfilRoute
+  '/dashboard_/tagihan': typeof DashboardTagihanRoute
+  '/dashboard_/voucher': typeof DashboardVoucherRoute
+  '/dev/supabase-check': typeof DevSupabaseCheckRoute
+  '/admin_/customer/$id': typeof AdminCustomerIdRoute
+  '/admin_/penugasan/$id': typeof AdminPenugasanIdRoute
+  '/admin_/penugasan/baru': typeof AdminPenugasanBaruRoute
+  '/admin_/worker/$id': typeof AdminWorkerIdRoute
+  '/admin_/worker/baru': typeof AdminWorkerBaruRoute
+  '/dashboard_/penugasan/$id': typeof DashboardPenugasanIdRoute
+  '/admin_/customer/': typeof AdminCustomerIndexRoute
+  '/admin_/penugasan/': typeof AdminPenugasanIndexRoute
+  '/admin_/worker/': typeof AdminWorkerIndexRoute
+  '/dashboard_/penugasan/': typeof DashboardPenugasanIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/daftar' | '/dashboard' | '/login' | '/penugasan' | '/penugasan/'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/daftar' | '/dashboard' | '/login' | '/penugasan'
-  id:
-    | '__root__'
     | '/'
+    | '/admin'
+    | '/aktivasi'
+    | '/cek-penugasan'
     | '/daftar'
     | '/dashboard'
     | '/login'
     | '/penugasan'
-    | '/penugasan/'
+    | '/admin/aktivitas'
+    | '/admin/customer'
+    | '/admin/feedback'
+    | '/admin/laporan'
+    | '/admin/login'
+    | '/admin/pembayaran'
+    | '/admin/pengaturan'
+    | '/admin/penugasan'
+    | '/admin/profil'
+    | '/admin/revisi'
+    | '/admin/voucher'
+    | '/admin/worker'
+    | '/cek-penugasan/$id'
+    | '/dashboard/notifikasi'
+    | '/dashboard/penugasan'
+    | '/dashboard/profil'
+    | '/dashboard/tagihan'
+    | '/dashboard/voucher'
+    | '/dev/supabase-check'
+    | '/admin/customer/$id'
+    | '/admin/penugasan/$id'
+    | '/admin/penugasan/baru'
+    | '/admin/worker/$id'
+    | '/admin/worker/baru'
+    | '/dashboard/penugasan/$id'
+    | '/admin/customer/'
+    | '/admin/penugasan/'
+    | '/admin/worker/'
+    | '/dashboard/penugasan/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/admin'
+    | '/aktivasi'
+    | '/cek-penugasan'
+    | '/daftar'
+    | '/dashboard'
+    | '/login'
+    | '/penugasan'
+    | '/admin/aktivitas'
+    | '/admin/feedback'
+    | '/admin/laporan'
+    | '/admin/login'
+    | '/admin/pembayaran'
+    | '/admin/pengaturan'
+    | '/admin/profil'
+    | '/admin/revisi'
+    | '/admin/voucher'
+    | '/cek-penugasan/$id'
+    | '/dashboard/notifikasi'
+    | '/dashboard/profil'
+    | '/dashboard/tagihan'
+    | '/dashboard/voucher'
+    | '/dev/supabase-check'
+    | '/admin/customer/$id'
+    | '/admin/penugasan/$id'
+    | '/admin/penugasan/baru'
+    | '/admin/worker/$id'
+    | '/admin/worker/baru'
+    | '/dashboard/penugasan/$id'
+    | '/admin/customer'
+    | '/admin/penugasan'
+    | '/admin/worker'
+    | '/dashboard/penugasan'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/aktivasi'
+    | '/cek-penugasan'
+    | '/daftar'
+    | '/dashboard'
+    | '/login'
+    | '/penugasan'
+    | '/admin_/aktivitas'
+    | '/admin_/customer'
+    | '/admin_/feedback'
+    | '/admin_/laporan'
+    | '/admin_/login'
+    | '/admin_/pembayaran'
+    | '/admin_/pengaturan'
+    | '/admin_/penugasan'
+    | '/admin_/profil'
+    | '/admin_/revisi'
+    | '/admin_/voucher'
+    | '/admin_/worker'
+    | '/cek-penugasan/$id'
+    | '/dashboard_/notifikasi'
+    | '/dashboard_/penugasan'
+    | '/dashboard_/profil'
+    | '/dashboard_/tagihan'
+    | '/dashboard_/voucher'
+    | '/dev/supabase-check'
+    | '/admin_/customer/$id'
+    | '/admin_/penugasan/$id'
+    | '/admin_/penugasan/baru'
+    | '/admin_/worker/$id'
+    | '/admin_/worker/baru'
+    | '/dashboard_/penugasan/$id'
+    | '/admin_/customer/'
+    | '/admin_/penugasan/'
+    | '/admin_/worker/'
+    | '/dashboard_/penugasan/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  AktivasiRoute: typeof AktivasiRoute
+  CekPenugasanRoute: typeof CekPenugasanRouteWithChildren
   DaftarRoute: typeof DaftarRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
-  PenugasanRoute: typeof PenugasanRouteWithChildren
+  PenugasanRoute: typeof PenugasanRoute
+  AdminAktivitasRoute: typeof AdminAktivitasRoute
+  AdminCustomerRoute: typeof AdminCustomerRouteWithChildren
+  AdminFeedbackRoute: typeof AdminFeedbackRoute
+  AdminLaporanRoute: typeof AdminLaporanRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminPembayaranRoute: typeof AdminPembayaranRoute
+  AdminPengaturanRoute: typeof AdminPengaturanRoute
+  AdminPenugasanRoute: typeof AdminPenugasanRouteWithChildren
+  AdminProfilRoute: typeof AdminProfilRoute
+  AdminRevisiRoute: typeof AdminRevisiRoute
+  AdminVoucherRoute: typeof AdminVoucherRoute
+  AdminWorkerRoute: typeof AdminWorkerRouteWithChildren
+  DashboardNotifikasiRoute: typeof DashboardNotifikasiRoute
+  DashboardPenugasanRoute: typeof DashboardPenugasanRouteWithChildren
+  DashboardProfilRoute: typeof DashboardProfilRoute
+  DashboardTagihanRoute: typeof DashboardTagihanRoute
+  DashboardVoucherRoute: typeof DashboardVoucherRoute
+  DevSupabaseCheckRoute: typeof DevSupabaseCheckRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -102,6 +499,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/aktivasi': {
+      id: '/aktivasi'
+      path: '/aktivasi'
+      fullPath: '/aktivasi'
+      preLoaderRoute: typeof AktivasiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cek-penugasan': {
+      id: '/cek-penugasan'
+      path: '/cek-penugasan'
+      fullPath: '/cek-penugasan'
+      preLoaderRoute: typeof CekPenugasanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/daftar': {
@@ -132,34 +550,310 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PenugasanRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/penugasan/': {
-      id: '/penugasan/'
+    '/admin_/aktivitas': {
+      id: '/admin_/aktivitas'
+      path: '/admin/aktivitas'
+      fullPath: '/admin/aktivitas'
+      preLoaderRoute: typeof AdminAktivitasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/customer': {
+      id: '/admin_/customer'
+      path: '/admin/customer'
+      fullPath: '/admin/customer'
+      preLoaderRoute: typeof AdminCustomerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/feedback': {
+      id: '/admin_/feedback'
+      path: '/admin/feedback'
+      fullPath: '/admin/feedback'
+      preLoaderRoute: typeof AdminFeedbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/laporan': {
+      id: '/admin_/laporan'
+      path: '/admin/laporan'
+      fullPath: '/admin/laporan'
+      preLoaderRoute: typeof AdminLaporanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/login': {
+      id: '/admin_/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/pembayaran': {
+      id: '/admin_/pembayaran'
+      path: '/admin/pembayaran'
+      fullPath: '/admin/pembayaran'
+      preLoaderRoute: typeof AdminPembayaranRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/pengaturan': {
+      id: '/admin_/pengaturan'
+      path: '/admin/pengaturan'
+      fullPath: '/admin/pengaturan'
+      preLoaderRoute: typeof AdminPengaturanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/penugasan': {
+      id: '/admin_/penugasan'
+      path: '/admin/penugasan'
+      fullPath: '/admin/penugasan'
+      preLoaderRoute: typeof AdminPenugasanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/profil': {
+      id: '/admin_/profil'
+      path: '/admin/profil'
+      fullPath: '/admin/profil'
+      preLoaderRoute: typeof AdminProfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/revisi': {
+      id: '/admin_/revisi'
+      path: '/admin/revisi'
+      fullPath: '/admin/revisi'
+      preLoaderRoute: typeof AdminRevisiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/voucher': {
+      id: '/admin_/voucher'
+      path: '/admin/voucher'
+      fullPath: '/admin/voucher'
+      preLoaderRoute: typeof AdminVoucherRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/worker': {
+      id: '/admin_/worker'
+      path: '/admin/worker'
+      fullPath: '/admin/worker'
+      preLoaderRoute: typeof AdminWorkerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cek-penugasan/$id': {
+      id: '/cek-penugasan/$id'
+      path: '/$id'
+      fullPath: '/cek-penugasan/$id'
+      preLoaderRoute: typeof CekPenugasanIdRouteImport
+      parentRoute: typeof CekPenugasanRoute
+    }
+    '/dashboard_/notifikasi': {
+      id: '/dashboard_/notifikasi'
+      path: '/dashboard/notifikasi'
+      fullPath: '/dashboard/notifikasi'
+      preLoaderRoute: typeof DashboardNotifikasiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard_/penugasan': {
+      id: '/dashboard_/penugasan'
+      path: '/dashboard/penugasan'
+      fullPath: '/dashboard/penugasan'
+      preLoaderRoute: typeof DashboardPenugasanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard_/profil': {
+      id: '/dashboard_/profil'
+      path: '/dashboard/profil'
+      fullPath: '/dashboard/profil'
+      preLoaderRoute: typeof DashboardProfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard_/tagihan': {
+      id: '/dashboard_/tagihan'
+      path: '/dashboard/tagihan'
+      fullPath: '/dashboard/tagihan'
+      preLoaderRoute: typeof DashboardTagihanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard_/voucher': {
+      id: '/dashboard_/voucher'
+      path: '/dashboard/voucher'
+      fullPath: '/dashboard/voucher'
+      preLoaderRoute: typeof DashboardVoucherRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dev/supabase-check': {
+      id: '/dev/supabase-check'
+      path: '/dev/supabase-check'
+      fullPath: '/dev/supabase-check'
+      preLoaderRoute: typeof DevSupabaseCheckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/customer/': {
+      id: '/admin_/customer/'
       path: '/'
-      fullPath: '/penugasan/'
-      preLoaderRoute: typeof PenugasanIndexRouteImport
-      parentRoute: typeof PenugasanRoute
+      fullPath: '/admin/customer/'
+      preLoaderRoute: typeof AdminCustomerIndexRouteImport
+      parentRoute: typeof AdminCustomerRoute
+    }
+    '/admin_/customer/$id': {
+      id: '/admin_/customer/$id'
+      path: '/$id'
+      fullPath: '/admin/customer/$id'
+      preLoaderRoute: typeof AdminCustomerIdRouteImport
+      parentRoute: typeof AdminCustomerRoute
+    }
+    '/admin_/penugasan/': {
+      id: '/admin_/penugasan/'
+      path: '/'
+      fullPath: '/admin/penugasan/'
+      preLoaderRoute: typeof AdminPenugasanIndexRouteImport
+      parentRoute: typeof AdminPenugasanRoute
+    }
+    '/admin_/penugasan/$id': {
+      id: '/admin_/penugasan/$id'
+      path: '/$id'
+      fullPath: '/admin/penugasan/$id'
+      preLoaderRoute: typeof AdminPenugasanIdRouteImport
+      parentRoute: typeof AdminPenugasanRoute
+    }
+    '/admin_/penugasan/baru': {
+      id: '/admin_/penugasan/baru'
+      path: '/baru'
+      fullPath: '/admin/penugasan/baru'
+      preLoaderRoute: typeof AdminPenugasanBaruRouteImport
+      parentRoute: typeof AdminPenugasanRoute
+    }
+    '/admin_/worker/': {
+      id: '/admin_/worker/'
+      path: '/'
+      fullPath: '/admin/worker/'
+      preLoaderRoute: typeof AdminWorkerIndexRouteImport
+      parentRoute: typeof AdminWorkerRoute
+    }
+    '/admin_/worker/$id': {
+      id: '/admin_/worker/$id'
+      path: '/$id'
+      fullPath: '/admin/worker/$id'
+      preLoaderRoute: typeof AdminWorkerIdRouteImport
+      parentRoute: typeof AdminWorkerRoute
+    }
+    '/admin_/worker/baru': {
+      id: '/admin_/worker/baru'
+      path: '/baru'
+      fullPath: '/admin/worker/baru'
+      preLoaderRoute: typeof AdminWorkerBaruRouteImport
+      parentRoute: typeof AdminWorkerRoute
+    }
+    '/dashboard_/penugasan/': {
+      id: '/dashboard_/penugasan/'
+      path: '/'
+      fullPath: '/dashboard/penugasan/'
+      preLoaderRoute: typeof DashboardPenugasanIndexRouteImport
+      parentRoute: typeof DashboardPenugasanRoute
+    }
+    '/dashboard_/penugasan/$id': {
+      id: '/dashboard_/penugasan/$id'
+      path: '/$id'
+      fullPath: '/dashboard/penugasan/$id'
+      preLoaderRoute: typeof DashboardPenugasanIdRouteImport
+      parentRoute: typeof DashboardPenugasanRoute
     }
   }
 }
 
-interface PenugasanRouteChildren {
-  PenugasanIndexRoute: typeof PenugasanIndexRoute
+interface CekPenugasanRouteChildren {
+  CekPenugasanIdRoute: typeof CekPenugasanIdRoute
 }
 
-const PenugasanRouteChildren: PenugasanRouteChildren = {
-  PenugasanIndexRoute: PenugasanIndexRoute,
+const CekPenugasanRouteChildren: CekPenugasanRouteChildren = {
+  CekPenugasanIdRoute: CekPenugasanIdRoute,
 }
 
-const PenugasanRouteWithChildren = PenugasanRoute._addFileChildren(
-  PenugasanRouteChildren,
+const CekPenugasanRouteWithChildren = CekPenugasanRoute._addFileChildren(
+  CekPenugasanRouteChildren,
 )
+
+interface AdminCustomerRouteChildren {
+  AdminCustomerIdRoute: typeof AdminCustomerIdRoute
+  AdminCustomerIndexRoute: typeof AdminCustomerIndexRoute
+}
+
+const AdminCustomerRouteChildren: AdminCustomerRouteChildren = {
+  AdminCustomerIdRoute: AdminCustomerIdRoute,
+  AdminCustomerIndexRoute: AdminCustomerIndexRoute,
+}
+
+const AdminCustomerRouteWithChildren = AdminCustomerRoute._addFileChildren(
+  AdminCustomerRouteChildren,
+)
+
+interface AdminPenugasanRouteChildren {
+  AdminPenugasanIdRoute: typeof AdminPenugasanIdRoute
+  AdminPenugasanBaruRoute: typeof AdminPenugasanBaruRoute
+  AdminPenugasanIndexRoute: typeof AdminPenugasanIndexRoute
+}
+
+const AdminPenugasanRouteChildren: AdminPenugasanRouteChildren = {
+  AdminPenugasanIdRoute: AdminPenugasanIdRoute,
+  AdminPenugasanBaruRoute: AdminPenugasanBaruRoute,
+  AdminPenugasanIndexRoute: AdminPenugasanIndexRoute,
+}
+
+const AdminPenugasanRouteWithChildren = AdminPenugasanRoute._addFileChildren(
+  AdminPenugasanRouteChildren,
+)
+
+interface AdminWorkerRouteChildren {
+  AdminWorkerIdRoute: typeof AdminWorkerIdRoute
+  AdminWorkerBaruRoute: typeof AdminWorkerBaruRoute
+  AdminWorkerIndexRoute: typeof AdminWorkerIndexRoute
+}
+
+const AdminWorkerRouteChildren: AdminWorkerRouteChildren = {
+  AdminWorkerIdRoute: AdminWorkerIdRoute,
+  AdminWorkerBaruRoute: AdminWorkerBaruRoute,
+  AdminWorkerIndexRoute: AdminWorkerIndexRoute,
+}
+
+const AdminWorkerRouteWithChildren = AdminWorkerRoute._addFileChildren(
+  AdminWorkerRouteChildren,
+)
+
+interface DashboardPenugasanRouteChildren {
+  DashboardPenugasanIdRoute: typeof DashboardPenugasanIdRoute
+  DashboardPenugasanIndexRoute: typeof DashboardPenugasanIndexRoute
+}
+
+const DashboardPenugasanRouteChildren: DashboardPenugasanRouteChildren = {
+  DashboardPenugasanIdRoute: DashboardPenugasanIdRoute,
+  DashboardPenugasanIndexRoute: DashboardPenugasanIndexRoute,
+}
+
+const DashboardPenugasanRouteWithChildren =
+  DashboardPenugasanRoute._addFileChildren(DashboardPenugasanRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  AktivasiRoute: AktivasiRoute,
+  CekPenugasanRoute: CekPenugasanRouteWithChildren,
   DaftarRoute: DaftarRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
-  PenugasanRoute: PenugasanRouteWithChildren,
+  PenugasanRoute: PenugasanRoute,
+  AdminAktivitasRoute: AdminAktivitasRoute,
+  AdminCustomerRoute: AdminCustomerRouteWithChildren,
+  AdminFeedbackRoute: AdminFeedbackRoute,
+  AdminLaporanRoute: AdminLaporanRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminPembayaranRoute: AdminPembayaranRoute,
+  AdminPengaturanRoute: AdminPengaturanRoute,
+  AdminPenugasanRoute: AdminPenugasanRouteWithChildren,
+  AdminProfilRoute: AdminProfilRoute,
+  AdminRevisiRoute: AdminRevisiRoute,
+  AdminVoucherRoute: AdminVoucherRoute,
+  AdminWorkerRoute: AdminWorkerRouteWithChildren,
+  DashboardNotifikasiRoute: DashboardNotifikasiRoute,
+  DashboardPenugasanRoute: DashboardPenugasanRouteWithChildren,
+  DashboardProfilRoute: DashboardProfilRoute,
+  DashboardTagihanRoute: DashboardTagihanRoute,
+  DashboardVoucherRoute: DashboardVoucherRoute,
+  DevSupabaseCheckRoute: DevSupabaseCheckRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
